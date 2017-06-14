@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SampleWebApplication.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SampleWebApplication
 {
@@ -28,11 +30,17 @@ namespace SampleWebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            //Registering SchoolContext as a service
+            //As developing locally, the connection string is being passed in. This is read from the appsettings.json file.
+            services.AddDbContext<SchoolContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        // Adding the context to the method signature so that ASP.NET dependency injection can provide it to the DBInitializer class.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SchoolContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -55,6 +63,9 @@ namespace SampleWebApplication
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Calling the Initializer method
+            DbInitializer.Initialize(context);
         }
     }
 }
