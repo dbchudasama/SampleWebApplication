@@ -19,7 +19,7 @@ namespace SampleWebApplication.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Students> Students { get; set; }
 
-        //Here, overriding deafult behaviour by  specifying singular table names in the DbCotext. By default EF typically name the properties with a plural name.
+        //Here, overriding default behaviour by  specifying singular table names in the DbCotext. By default EF typically name the properties with a plural name.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Course");
