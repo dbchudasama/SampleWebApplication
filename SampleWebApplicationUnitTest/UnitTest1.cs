@@ -34,9 +34,21 @@ namespace SampleWebApplicationUnitTest
             //Save chanes and add only once
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
 
-            Console.WriteLine("MockStudent:" + mockContext.Object + "successfully added!");
+            Console.WriteLine("MockStudent:" + mockContext + "successfully added!");
             Console.ReadLine();
   
+        }
+
+        [TestMethod]
+
+        public void EditMockStudent()
+        {
+            //ARRANGE
+
+
+            //ACT
+
+            //ASSERT
         }
     }
 }
