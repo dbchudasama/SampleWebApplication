@@ -14,18 +14,23 @@ namespace SharedCodeSampleWebApplication.MockRepository
 
         public virtual DbSet<MockStudent> MockStudents { get; set; }
 
-        //public MockStudentContext(DbContextOptions<MockStudentContext> options) : base(options)
-        //{
+        public MockStudentContext() 
+        {
 
-        //}
+        }
+
+        public MockStudentContext(DbContextOptions<MockStudentContext> options) : base(options)
+        {
+
+        }
 
         //By setting the property as virtual it will allow the mocking framework to derive from the context overriding these properties with a mocked implementation.
-        
 
-        ////Here, overriding default behaviour by  specifying singular table names in the DbCotext. By default EF typically name the properties with a plural name.
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<MockStudents>().ToTable("Student");
-        //}
+
+        //Here, overriding default behaviour by  specifying singular table names in the DbCotext. By default EF typically name the properties with a plural name.
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MockStudent>().ToTable("Student");
+        }
     }
 }

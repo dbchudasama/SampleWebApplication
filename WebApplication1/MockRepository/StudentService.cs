@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,14 @@ namespace SharedCodeSampleWebApplication.MockRepository
         {
             _context = context;
         }
-       
-        public MockStudent AddStudent(string name, string lastName, DateTime Enrollment_Date)
+
+        public EntityEntry<MockStudent> AddStudent(string name, string lastName, DateTime Enrollment_Date)
         {
             var mockStudent = _context.MockStudents.Add(new MockStudent { FirstMidName = name, LastName = lastName, EnrollmentDate = Enrollment_Date});
             _context.SaveChanges();
 
             return mockStudent;
-            //Test
+            
         }
 
     }
