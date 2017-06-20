@@ -18,7 +18,7 @@ namespace SharedCodeSampleWebApplication.MockRepository
             _context = context;
         }
 
-        public EntityEntry<MockStudent> AddStudent(string name, string lastName, DateTime Enrollment_Date)
+        public EntityEntry<MockStudent> AddStudent(int ID, string name, string lastName, DateTime Enrollment_Date)
         {
             var mockStudent = _context.MockStudents.Add(new MockStudent { FirstMidName = name, LastName = lastName, EnrollmentDate = Enrollment_Date});
             _context.SaveChanges();
@@ -28,7 +28,7 @@ namespace SharedCodeSampleWebApplication.MockRepository
         }
 
 
-        public EntityEntry<MockStudent> EditStudent(string name, string lastName, DateTime Enrollment_Date)
+        public EntityEntry<MockStudent> EditStudent(int ID, string name, string lastName, DateTime Enrollment_Date)
         {
             var editMockStudent = _context.MockStudents.Update(new MockStudent { FirstMidName = name, LastName = lastName, EnrollmentDate = Enrollment_Date });
             _context.SaveChanges();
@@ -37,7 +37,7 @@ namespace SharedCodeSampleWebApplication.MockRepository
         }
 
 
-        public EntityEntry<MockStudent> RemoveStudent(string name, string lastName, DateTime Enrollment_Date)
+        public EntityEntry<MockStudent> RemoveStudent(int ID, string name, string lastName, DateTime Enrollment_Date)
         {
             var removeMockStudent = _context.MockStudents.Remove(new MockStudent { FirstMidName = name, LastName = lastName, EnrollmentDate = Enrollment_Date });
             _context.SaveChanges();
