@@ -13,6 +13,11 @@ namespace SampleWebApplication.Data
         {
         }
 
+        //public SchoolContext()
+        //{
+
+        //}
+
         //Creating a DbSet property for each entity set. As this is an entity set, in the EFC Framework, entity set refers to a database whilst an entity refers to a row in the database.
         //When the table will be created the names will correspond to the Dbset values
         public DbSet<Course> Courses { get; set; }

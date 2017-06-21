@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SampleWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
+using NonFactors.Mvc.Grid;
 
 namespace SampleWebApplication
 {
@@ -36,6 +37,9 @@ namespace SampleWebApplication
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
+
+            //Registering MVC grid
+            services.AddMvcGrid();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

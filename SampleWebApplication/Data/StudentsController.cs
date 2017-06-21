@@ -19,10 +19,16 @@ namespace SampleWebApplication.Data
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public ActionResult Index()
         {
-            return View(await _context.Students.ToListAsync());
+            return View(_context.Set<Students>().OrderBy(model => model.FirstMidName));
         }
+
+        //public async Task<IActionResult> Index()
+        //{
+          //return View(await _context.Students.ToListAsync());
+        //}
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -9,6 +9,7 @@ namespace SampleWebApplication.Models
 {
     public class Students
     {
+        [Display(Name = "ID")]
         public int ID { get; set; }
         [Required]
         //Allows us to put a cap on the length of the LastName
@@ -27,6 +28,12 @@ namespace SampleWebApplication.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Enrollment Date")]
         public DateTime EnrollmentDate { get; set; }
+
+        //Adding new column - hasGraduated
+        [Column("hasGraduated")]
+        [Display(Name = "Has Graduated")]
+        public bool hasGraduated { get; set; }
+
         [Display(Name = "Full Name")]
 
         public string FullName
