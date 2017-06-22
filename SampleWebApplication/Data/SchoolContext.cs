@@ -27,9 +27,15 @@ namespace SampleWebApplication.Data
         //Here, overriding default behaviour by  specifying singular table names in the DbCotext. By default EF typically name the properties with a plural name.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Loading Context
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Course>().ToTable("Course");
             modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
             modelBuilder.Entity<Students>().ToTable("Student");
+
+ 
+            
         }
     }
 }

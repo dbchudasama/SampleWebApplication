@@ -7,20 +7,29 @@
 <h2>Index</h2>
 
 @(Html
-    .Grid(Model)
-    .Build(columns =>
-    {
+        .Grid(Model)
+        .Build(columns =>
+        {
 
-        columns.Add(model => model.FirstMidName).Titled("First Name").Sortable(true);
-        columns.Add(model => model.LastName).Titled("Surname");
+            columns.Add(model => model.FirstMidName).Titled("First Name").Sortable(true);
+            columns.Add(model => model.LastName).Titled("Surname");
 
-        columns.Add(model => model.EnrollmentDate).Titled("Enrollment Date");
+            columns.Add(model => model.EnrollmentDate).Titled("Enrollment Date");
 
-        columns.Add(model => model.hasGraduated).Titled("Has Graduated");
-        columns.Add(model => Html.CheckBox("Student_" + model.hasGraduated));
+            columns.Add(model => Html.CheckBox("Student_" + model.FirstMidName + model.LastName, model.hasGraduated)).Titled("Has Graduated");
 
-    })
-    .Filterable()
-    .Sortable()
-    .Pageable()
+        })
+
+        .Filterable()
+        .Sortable()
+        .Pageable()
+
 )
+   <form asp-action="Save">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+   </form>
+

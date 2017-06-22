@@ -22,6 +22,8 @@ namespace SampleWebApplication.Data
         [HttpGet]
         public ActionResult Index()
         {
+
+
             return View(_context.Set<Students>().OrderBy(model => model.FirstMidName));
         }
 
@@ -159,6 +161,30 @@ namespace SampleWebApplication.Data
         private bool StudentsExists(int id)
         {
             return _context.Students.Any(e => e.ID == id);
+        }
+
+        public ActionResult Save()
+        {
+            return View();
+        }
+
+        //Save Method
+        [HttpPost]
+        public ActionResult Save(Students students)
+        {
+            _context.Update(students);
+            try
+            {
+                // Attempt to save changes to the database
+                _context.SaveChanges();
+                return View(students);
+            }
+                catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+
+           
         }
     }
 }
