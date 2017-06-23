@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SampleWebApplication.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace SampleWebApplication.Data
 {
@@ -15,22 +16,23 @@ namespace SampleWebApplication.Data
 
         public StudentsController(SchoolContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Students
-        [HttpGet]
-        public ActionResult Index()
-        {
-
-
-            return View(_context.Set<Students>().OrderBy(model => model.FirstMidName));
-        }
-
-        //public async Task<IActionResult> Index()
+        [HttpGet] 
+        //public ActionResult Index()
         //{
-          //return View(await _context.Students.ToListAsync());
+
+
+           //// using (SchoolContext _context = new SchoolContext())
+                //return View(_context.Set<Students>().OrderBy(model => model.FirstMidName));
         //}
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Students.ToListAsync());
+        }
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -170,13 +172,15 @@ namespace SampleWebApplication.Data
 
         //Save Method
         [HttpPost]
-        public ActionResult Save(Students students)
+        [ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Save([Bind("ID,LastName,FirstMidName,EnrollmentDate,hasGraduated")] Students students)
+        public async Task<IActionResult> Save(int id, [Bind("ID,LastName,FirstMidName,EnrollmentDate")] Students students)
         {
             _context.Update(students);
             try
             {
                 // Attempt to save changes to the database
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return View(students);
             }
                 catch (DbUpdateConcurrencyException ex)

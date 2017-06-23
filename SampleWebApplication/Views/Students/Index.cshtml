@@ -6,7 +6,8 @@
 
 <h2>Index</h2>
 
-@(Html
+<form asp-action="Save", method="post">
+    @(Html
         .Grid(Model)
         .Build(columns =>
         {
@@ -17,19 +18,22 @@
             columns.Add(model => model.EnrollmentDate).Titled("Enrollment Date");
 
             columns.Add(model => Html.CheckBox("Student_" + model.FirstMidName + model.LastName, model.hasGraduated)).Titled("Has Graduated");
-
+            //columns.Add(model => Html.CheckBoxFor(model => true, model))
+         
         })
 
         .Filterable()
         .Sortable()
         .Pageable()
+        
+        
 
-)
-   <form asp-action="Save">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    )
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
-   </form>
+    </div>
+</form>
 
