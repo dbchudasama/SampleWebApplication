@@ -18,7 +18,7 @@
             columns.Add(model => model.EnrollmentDate).Titled("Enrollment Date");
 
             columns.Add(model => Html.CheckBox("Student_" + model.FirstMidName + model.LastName, model.hasGraduated)).Titled("Has Graduated");
-            //columns.Add(model => Html.CheckBoxFor(model => true, model))
+            columns.Add(model => Html.CheckBoxFor(modelitem => model.hasGraduated, model));
          
         })
 

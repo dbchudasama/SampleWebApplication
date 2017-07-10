@@ -1,3 +1,38 @@
+ARM Template:
+ASA Manually need to set Input and Output 
+Blob Manually add containers and upload relevant files 
+
+SELECT
+    T.Query AS SearchTerm,
+CASE  
+        WHEN (T.Query LIKE '%how%suicide%') AND (R.FalsePositive = 'FALSE' OR R.FalsePositive IS NULL) THEN 1
+        WHEN (T.Query LIKE '%how%kill%yourself%') AND (R.FalsePositive = 'FALSE' OR R.FalsePositive IS NULL) THEN 1 
+        WHEN (T.Query LIKE '%way%kill%yourself%') AND (R.FalsePositive = 'FALSE' OR R.FalsePositive IS NULL) THEN 1
+        WHEN (T.Query LIKE '%commit%suicide%') AND (R.FalsePositive = 'FALSE' OR R.FalsePositive IS NULL) THEN 1
+ELSE 0
+END AS PositiveMatch
+INTO
+    safetynetoutputdatabase
+FROM
+    safetynetinputeventhub T 
+LEFT JOIN safetynetreferencedata R ON R.SearchTerm = T.Query
+
+
+SELECT
+    Query AS SearchExpression,
+    CASE  
+        WHEN SearchExpression LIKE '%how%suicide%' THEN 1
+        WHEN SearchExpression LIKE '%how%kill%yourself%' THEN 1
+        WHEN SearchExpression LIKE '%way%kill%yourself%' THEN 1
+        ELSE 0
+    END AS PositiveMatch
+INTO
+    safetynetouputdatabase
+FROM
+    safetynetinputeventhub
+
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -40,5 +75,10 @@
 
 
 Boolean Flag - Checkbox control - Is finished? - Bind True or False value to Checkbox. False is non checked whilst true is checked.
-Only Date format dispaly regardless how it is saved in DB.
 
+
+Web App. Needed to modify the project.csproj file for making packages compatible with ASP.Net Core.
+Create a new AD B2C in portal. Add new project - WEB App to VS Solution. Setting Auth configuration at start. Select subscription and domain name. Authentication - Work or School account.
+In Azure Portal, go to Azure Directory -> App Registrations -> CLick on Web app -> Settings -> Reply URLs. Here you will see the URl's being used. When developing will show local, but upon deplyoment will need to be updated to actua URL.
+Are ok to authenitcate with your own credentals, but if more uesrs need access then users can be added via protal. Active Directory -> Useers and groups -> All Users -> Add New User
+To run, set the Web app as the Start Up Project and run
